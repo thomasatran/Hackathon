@@ -10,12 +10,29 @@ class Background extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.changeToForm = this.changeToForm.bind(this);
       this.changeToHome = this.changeToForm.bind(this);
+      this.handleGrocery = this.handleGrocery.bind(this);
 
-      this.state = {mode: "Home", Ingredients: [], category: [], value: '', response: []}
+      this.state = {mode: "Home", Ingredients: [], category: [], value: '', response: [], groceries: []}
+    }
+    async handleGrocery(e){
+      e.preventDefault();
+      let response = await fetch('http://localhost:4200/user/getGroceryList', {
+        method: 'POST',headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+      }).then(res=>res.json())
+      .then((json)=>{
+        console.log(json);
+        return json;
+      });
+      this.setState({groceries: response});
+      this.setState({mode: 'Groceries'});
     }
     async handleSubmit(e){
       e.preventDefault();
-      console.log('Ingredients:', this.state.Ingredients, 'Categories', this.state.category, 'cookTime: ',this.state.value );
+      
       let response = await fetch('http://localhost:4200/recipe/search', {
         method: 'POST',
         headers: {
@@ -35,7 +52,6 @@ class Background extends Component {
     this.setState({response: arr});
     }
     selectIngredient(e){
-      console.log(this.state.Ingredients);
       let pressed = e.target.getAttribute('aria-pressed')=='false';
       if(pressed){
         let array = [...this.state.Ingredients];
@@ -57,7 +73,6 @@ class Background extends Component {
       this.setState({value: event.target.value});
     }
     selectCategory(e){
-      console.log(this.state.category);
       let pressed = e.target.getAttribute('aria-pressed')=='false';
       if(pressed){
         let array = [...this.state.category];
@@ -75,7 +90,6 @@ class Background extends Component {
       }
     }
     seeMore(e){
-      console.log(e.target.value);
     }
 
     changeToForm(){
@@ -94,7 +108,7 @@ class Background extends Component {
           <button class= 'btn btn-dark btn-lg' onClick={this.changeToForm}>Recipe Suggestion</button>
         </div>
         <div class='button2' >
-          <button class = 'btn btn-dark btn-lg' onClick={this.changeToForm}> Grocery Suggestion</button>
+          <button class = 'btn btn-dark btn-lg' onClick={this.handleGrocery}> Grocery Suggestion</button>
         </div>
       </div>
       }
@@ -162,6 +176,25 @@ class Background extends Component {
         form = <div class ="content">
             <ul class = "pr-1 pl-1">{listItems}</ul>
           </div>
+      }
+      else if(state ==="Groceries"){
+        let arr = [];
+        let recipes = this.state.groceries.favoriteRecipes;
+        recipes.map((recipe)=>{
+          if(arr.indexOf(recipe.ingredients[0].name) <0){
+            arr = arr.concat([recipe.ingredients[0].name]);
+          }
+        });
+        let groceryList = arr.map((item)=>{
+          return (
+            <h2 class = "pt-3 pb-5">{item}</h2>
+          )
+        });
+        form = <div class ="content">
+        <h1> Grocery List</h1>
+        <hr class= 'featurette-divider'></hr>
+          <ul class = "pr-1 pl-1">{groceryList}</ul>
+        </div>
       }
       
         return (

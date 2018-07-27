@@ -8,11 +8,6 @@ const recipe = require('./routes/recipe.routes');
 const grocery = require('./routes/grocery.routes');
 const user = require('./routes/user.routes');
 
-
-app.use('/recipe', recipe);
-app.use('/grocery', grocery);
-app.use('/user', user);
-
 app.use(function (req,res,next) {
     res.setHeader("Access-Control-Allow-Origin",  "*");
     res.setHeader('Access-Control-Allow-Methods', "PUT, PATCH, GET, POST, DELETE, OPTIONS");
@@ -20,9 +15,15 @@ app.use(function (req,res,next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
+app.use('/recipe', recipe);
+app.use('/grocery', grocery);
+app.use('/user', user);
+
+
 
 app.use(bodyParser.json());
 app.use('/recipe', recipe);
+app.use('/user', user);
 app.listen(port, () => {
     console.log(`server is listening on ${port}`)
 });
