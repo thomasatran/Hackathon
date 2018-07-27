@@ -40,7 +40,7 @@ router.post('/create', async(req, res) => {
         ingredientStrings:["salad", "bread",'Chicken'],
         cookTime: 10,
         totalClicksPerRecipe: 25,
-        instructions: "Heat up a pan on medium, place Sausage in pan for 5 minutes, meanwhile toasting the bun. After 5 minutes, assemble sausage and bun on a plate to eat"
+        instructions: ["Heat up a pan on medium", "place Sausage in pan for 5 minutes", "toasting the bun", "After 5 minutes, assemble sausage and bun on a plate to eat"]
     });
 
     console.log(""+ value);
@@ -54,13 +54,13 @@ router.post('/search', async (req, res) => {
     let num = parseInt(req.body.CookTime);
     console.log(req.body.Ingredients);
     // let value = await Recipe.find( {ingredientStrings: { $elemMatch: req.body.results}});
-    let value = await Recipe.find( { ingredientStrings:  { $all:  req.body.Ingredients}});
+    let value = await Recipe.find( {categories: {$all: req.body.Categories},cookTime: req.body.CookTime, ingredientStrings:  { $all:  req.body.Ingredients}});
     console.log(value);
      // let value2 = await Array.from(value).find( {ingredients: { $elemMatch: { "name": req.body.results[1]}}});;
 
     //let value2 = await value.find({ingredients: { $elemMatch: { "name": "bread"}}});
     // res.send("route to searching for a recipe is connected and here is what we have: "  + JSON.stringify(value, null, 2));
-    res.send('done');
+    res.send(value);
 
 });
 

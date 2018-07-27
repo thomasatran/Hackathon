@@ -4,6 +4,7 @@ let RecipeSchema = new mongoose.Schema({
         type: String,
     
     },
+    instructions: [],
     name: {
         type: String,
         required: true

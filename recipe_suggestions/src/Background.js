@@ -26,8 +26,8 @@ class Background extends Component {
           Categories: this.state.category,
           CookTime: this.state.value
         }),
-      }).then(text=>text.text()).then((body)=>{
-      console.log(JSON.stringify(body)); 
+      }).then(text=>text.json()).then((body)=>{
+      console.log(body); 
     });
     }
     selectIngredient(e){
