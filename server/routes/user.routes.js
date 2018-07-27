@@ -7,23 +7,18 @@ router.post('/getGroceryList', async (req, res) => {
     let value = await User.find( {name:  "Roy"});
     // let whatever = JSON.parse(value);
      // res.send(value[0]);
-    let favoriteRecipes = value[0].favoriteRecipes;
-    let body = [];
-    for(int i = 0; i < favoriteRecipes.length; i++){
-        body.push(favoriteRecipes[i].ingredients);
-    }
+    let body = JSON.stringify(value[0]);
+    let url = 'http:localhost:5000/getmylist';
 
+    fetch('http://localhost:5000/getmylist', {
+        method: 'POST',
+        body:    body,
+        headers: {         
+            'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(json => res.send(json));
 
-    res.send(body);
-    // let url = 'http:localhost:5000/getmylist';
-    // res.send(url);
-    // fetch('http://localhost:5000/getmylist', {
-    //     method: 'POST',
-    //     body:    JSON.stringify(body),
-    //     headers: { 'Content-Type': 'application/json' }
-    // })
-    // .then(res => res.json())
-    // .then(json => res.send(json)).catch(error => res.send("There has been an error:" + error));
 });
 
 router.post('/create', async (req, res) => {

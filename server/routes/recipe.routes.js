@@ -52,10 +52,8 @@ router.post('/create', async(req, res) => {
 
 router.post('/search', async (req, res) => {
     let num = parseInt(req.body.CookTime);
-    console.log(req.body.Ingredients);
     // let value = await Recipe.find( {ingredientStrings: { $elemMatch: req.body.results}});
     let value = await Recipe.find( {categories: {$all: req.body.Categories},cookTime: req.body.CookTime, ingredientStrings:  { $all:  req.body.Ingredients}});
-    console.log(value);
      // let value2 = await Array.from(value).find( {ingredients: { $elemMatch: { "name": req.body.results[1]}}});;
 
     //let value2 = await value.find({ingredients: { $elemMatch: { "name": "bread"}}});
