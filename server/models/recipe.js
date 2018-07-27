@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-
+const {mongoose} = require('./../db/mongoose');
 let RecipeSchema = new mongoose.Schema({
     orderID: {
         type: String,
-        required: true
+    
     },
     name: {
         type: String,
@@ -12,6 +11,10 @@ let RecipeSchema = new mongoose.Schema({
     ingredients: {
         type: Array,
         required: true
+    },
+    ingredientStrings:[],
+    categories: {
+        type:Array
     },
     cookTime: {
         type: Number,

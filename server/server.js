@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+let recipe = require('./routes/recipe.routes');
 const port = process.env.PORT || 4200;
 
 
 const app = express();
-const recipe = require('./routes/recipe.routes');
 app.use(function (req,res,next) {
     res.setHeader("Access-Control-Allow-Origin",  "*");
     res.setHeader('Access-Control-Allow-Methods', "PUT, PATCH, GET, POST, DELETE, OPTIONS");

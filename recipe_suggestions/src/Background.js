@@ -12,9 +12,23 @@ class Background extends Component {
       this.removeIngredient = this.removeIngredient.bind(this);
       this.state = {mode: "Home", Ingredients: [], category: [], value: ''}
     }
-    handleSubmit(e){
+    async handleSubmit(e){
       e.preventDefault();
       console.log('Ingredients:', this.state.Ingredients, 'Categories', this.state.category, 'cookTime: ',this.state.value );
+      await fetch('http://localhost:4200/recipe/search', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Ingredients: this.state.Ingredients,
+          Categories: this.state.category,
+          CookTime: this.state.value
+        }),
+      }).then(text=>text.text()).then((body)=>{
+      console.log(JSON.stringify(body)); 
+    });
     }
     selectIngredient(e){
       console.log(this.state.Ingredients);
@@ -101,18 +115,18 @@ class Background extends Component {
               <hr class= 'featurette-divider'></hr>
               <h1>Food Type</h1>
               <hr class= 'featurette-divider'></hr>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Thai"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Thai</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Korean"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Korean</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Japanese"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Japanese</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Chinese"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Chinese</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Vietnamese"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Vietnamese</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Mexican"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Mexican</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "American"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>American</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Italian"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Italian</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Indian"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Indian</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Mongolian"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Mongolian</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Mediterranean"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Mediterranean</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Greek"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Greek</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Thai"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Thai</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Korean"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Korean</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Japanese"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Japanese</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Chinese"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Chinese</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Vietnamese"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Vietnamese</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Mexican"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Mexican</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "American"aria-pressed="false" onClick={this.selectCategory.bind(this)}>American</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Italian"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Italian</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Indian"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Indian</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Mongolian"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Mongolian</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Mediterranean"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Mediterranean</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Greek"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Greek</button>
   
               <div class="form-group row pb-1 pt-1 mr-0 ml-0">
                 <label for="cookTime" class="col-sm-2 col-form-label">Cook Time (Minutes)</label>
