@@ -32,7 +32,11 @@ class Background extends Component {
     }
     async handleSubmit(e){
       e.preventDefault();
-      
+      console.log(JSON.stringify({
+        Ingredients: this.state.Ingredients,
+        Categories: this.state.category,
+        CookTime: this.state.value
+      }));
       let response = await fetch('http://localhost:4200/recipe/search', {
         method: 'POST',
         headers: {
@@ -43,11 +47,13 @@ class Background extends Component {
           Ingredients: this.state.Ingredients,
           Categories: this.state.category,
           CookTime: this.state.value
-        }),
+        })
       }).then(text=>text.json()).then((body)=>{
       return body; 
     });
+
     let arr = response.slice(0,5);
+    console.log(arr);
     this.setState({mode:"Results"});
     this.setState({response: arr});
     }
@@ -148,7 +154,7 @@ class Background extends Component {
               <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Greek"aria-pressed="false" onClick={this.selectCategory.bind(this)}>Greek</button>
   
               <div class="form-group row pb-1 pt-1 mr-0 ml-0">
-                <label for="cookTime" class="col-sm-2 col-form-label">Cook Time (Minutes)</label>
+                <label  class="col-sm-2 col-form-label">Cook Time (Minutes)</label>
                 <div class="col-sm-10">
                 <input type="text" value={this.state.value} onChange={this.handleChange} />
                   {/* <input type="text" class="mt-2 form-control"  onChange={this.handleChange.bind(this)}id="cookTime"value ={this.state.cookTime} placeholder="45"></input> */}

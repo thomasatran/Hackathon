@@ -8,6 +8,8 @@ const recipe = require('./routes/recipe.routes');
 const grocery = require('./routes/grocery.routes');
 const user = require('./routes/user.routes');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(function (req,res,next) {
     res.setHeader("Access-Control-Allow-Origin",  "*");
     res.setHeader('Access-Control-Allow-Methods', "PUT, PATCH, GET, POST, DELETE, OPTIONS");
@@ -21,7 +23,7 @@ app.use('/user', user);
 
 
 
-app.use(bodyParser.json());
+
 app.use('/recipe', recipe);
 app.use('/user', user);
 app.listen(port, () => {

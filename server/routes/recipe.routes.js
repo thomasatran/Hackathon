@@ -51,11 +51,12 @@ router.post('/create', async(req, res) => {
 
 
 router.post('/search', async (req, res) => {
+    console.log(req.body.Categories);
     let num = parseInt(req.body.CookTime);
     // let value = await Recipe.find( {ingredientStrings: { $elemMatch: req.body.results}});
     let value = await Recipe.find( {categories: {$all: req.body.Categories},cookTime: req.body.CookTime, ingredientStrings:  { $all:  req.body.Ingredients}});
      // let value2 = await Array.from(value).find( {ingredients: { $elemMatch: { "name": req.body.results[1]}}});;
-
+    console.log(value);
     //let value2 = await value.find({ingredients: { $elemMatch: { "name": "bread"}}});
     // res.send("route to searching for a recipe is connected and here is what we have: "  + JSON.stringify(value, null, 2));
     res.send(value);
