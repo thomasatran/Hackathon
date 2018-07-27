@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
-const port = 3000;
 
-app.use(bodyParser.json());
+let recipe = require('./routes/recipe.routes');
+const port = process.env.PORT || 4200;
+const app = express();
 
 var {mongoose} = require('./db/mongoose');
 const recipe = require('./routes/recipe.routes');
@@ -15,9 +15,16 @@ app.use('/recipe', recipe);
 app.use('/grocery', grocery);
 app.use('/user', user);
 
+app.use(function (req,res,next) {
+    res.setHeader("Access-Control-Allow-Origin",  "*");
+    res.setHeader('Access-Control-Allow-Methods', "PUT, PATCH, GET, POST, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
+app.use(bodyParser.json());
+app.use('/recipe', recipe);
 app.listen(port, () => {
     console.log(`server is listening on ${port}`)
 });
-
-
-module.exports = app;

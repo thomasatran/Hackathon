@@ -4,19 +4,12 @@ let RecipeSchema = new mongoose.Schema({
     recipeID: {
         type: String
     },
-    instructions: [],
     name: {
         type: String,
         required: true
     },
-    ingredients: {
-        type: Array,
-        required: true
-    },
-    ingredientStrings:[],
-    categories: {
-        type:Array
-    },
+    ingredients: [],// has all the info
+    ingredientStrings: [],
     cookTime: {
         type: Number,
         required: true
