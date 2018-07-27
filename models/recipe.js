@@ -8,7 +8,8 @@ let RecipeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ingredients: [],
+    ingredients: [],// has all the info
+    ingredientStrings: [],
     cookTime: {
         type: Number,
         required: true

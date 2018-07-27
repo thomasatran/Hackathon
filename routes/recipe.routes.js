@@ -22,16 +22,17 @@ router.post('/create', async(req, res) => {
 
      let value = await Recipe.create({
         recipeID: 6,
-        name: "chicken Sandwich",
+        name: "Salad with Croutons",
         ingredients: [{
             "name": "chicken",
             "quantity": 8,
             "unit": "ounce"
         }, {
-            "name": "Bread",
-            "quantity": 2,
-            "unit": "slices"
+            "name": "bread",
+            "quantity": 8,
+            "unit": "pieces"
         }],
+        ingredientStrings:["salad", "bread"],
         cookTime: 10,
         totalClicksPerRecipe: 25,
         instructions: "Heat up a pan on medium, place Sausage in pan for 5 minutes, meanwhile toasting the bun. After 5 minutes, assemble sausage and bun on a plate to eat"
@@ -46,13 +47,27 @@ router.post('/create', async(req, res) => {
 
 router.post('/search', async (req, res) => {
 
-    // let value = await Recipe.find( {ingredients: { $elemMatch: { "name": "chicken"}}});
-    let value = await Recipe.find( {ingredients: { $elemMatch: { "name": req.body.results[0]}}});
+    // let value = await Recipe.find( {ingredientStrings: { $elemMatch: req.body.results}});
+    let value = await Recipe.find( {ingredientStrings:  { $all:  req.body.results}});
 
-    let value2 = value[0];
+     // let value2 = await Array.from(value).find( {ingredients: { $elemMatch: { "name": req.body.results[1]}}});;
 
     //let value2 = await value.find({ingredients: { $elemMatch: { "name": "bread"}}});
-    res.send("route to searching for a recipe is connected and here is what we have: "  + JSON.stringify(value, null, 2));
+    // res.send("route to searching for a recipe is connected and here is what we have: "  + JSON.stringify(value, null, 2));
+    res.send(value);
+
+});
+
+router.post('/looseSearch', async (req, res) => {
+
+    // let value = await Recipe.find( {ingredientStrings: { $elemMatch: req.body.results}});
+    let value = await Recipe.find( {ingredientStrings:  { $in:  req.body.results}});
+
+     // let value2 = await Array.from(value).find( {ingredients: { $elemMatch: { "name": req.body.results[1]}}});;
+
+    //let value2 = await value.find({ingredients: { $elemMatch: { "name": "bread"}}});
+    // res.send("route to searching for a recipe is connected and here is what we have: "  + JSON.stringify(value, null, 2));
+    res.send(value);
 
 });
 
