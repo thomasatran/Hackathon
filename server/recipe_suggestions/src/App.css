@@ -1,0 +1,82 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.background {
+  background-image: url("http://dilbilimarastirmalari.com/wp-content/uploads/2018/06/Spectacular-Kitchen-Pictures-70-For-Your-with-Kitchen-Pictures.jpg");
+  background-size: cover;
+  min-height:100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  /* filter: blur(5px); */
+}
+.dark_filter{
+  z-index: -0;
+
+
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,0.7);
+}
+.button1{
+}
+.button2{
+  padding-top:5%;
+  padding-bottom:5%;
+}
+.titleHeader{
+  font-weight: 900;
+  color: black;
+}
+.content{
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 3px;
+  z-index: 2;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+.title_container{
+  padding-top: 10%;
+  padding-left: 35%;
+  right: 0;
+  z-index: 2;
+  padding-right:35%;
+  
+}
+.category{
+  margin-top:2.5%;
+  margin-bottom:2.5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
