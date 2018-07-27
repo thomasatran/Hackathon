@@ -2,8 +2,7 @@ const {mongoose} = require('./../db/mongoose');
 
 let RecipeSchema = new mongoose.Schema({
     recipeID: {
-        type: String,
-        required: true
+        type: String
     },
     name: {
         type: String,
@@ -17,6 +16,9 @@ let RecipeSchema = new mongoose.Schema({
     totalClicksPerRecipe: {
         type: Number,
         required: true
+    },
+    instructions: {
+        type: String
     }
 });
 
