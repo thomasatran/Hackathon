@@ -32,7 +32,6 @@
     background:rgba(0,0,0,0.7);
 }
 .button1{
-  padding-top: 40%;
 }
 .button2{
   padding-top:5%;
@@ -43,18 +42,24 @@
   color: black;
 }
 .content{
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
   border-radius: 3px;
   z-index: 2;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 .title_container{
-  padding-top: 15%;
+  padding-top: 10%;
   padding-left: 35%;
   right: 0;
   z-index: 2;
   padding-right:35%;
   
+}
+.category{
+  margin-top:2.5%;
+  margin-bottom:2.5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
 }
 .App-header {
   background-color: #222;
