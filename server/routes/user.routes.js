@@ -8,22 +8,27 @@ router.post('/getGroceryList', async (req, res) => {
     // let whatever = JSON.parse(value);
      // res.send(value[0]);
     let favoriteRecipes = value[0].favoriteRecipes;
-    let body = [];
-    for(int i = 0; i < favoriteRecipes.length; i++){
-        body.push(favoriteRecipes[i].ingredients);
+    let body = {
+        "favoriteRecipes": []
+    };
+    for(let i = 0; i < favoriteRecipes.length; i++){
+        let ingredients = {
+            "ingredients": favoriteRecipes[i].ingredients
+        }
+        body.favoriteRecipes.push(ingredients);
     }
 
 
-    res.send(body);
-    // let url = 'http:localhost:5000/getmylist';
+    // res.send(body);
+    let url = 'http:localhost:5000/getmylist';
     // res.send(url);
-    // fetch('http://localhost:5000/getmylist', {
-    //     method: 'POST',
-    //     body:    JSON.stringify(body),
-    //     headers: { 'Content-Type': 'application/json' }
-    // })
-    // .then(res => res.json())
-    // .then(json => res.send(json)).catch(error => res.send("There has been an error:" + error));
+    fetch('http://localhost:5000/getmylist', {
+        method: 'POST',
+        body:    JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(result => result.json())
+    .then(json => res.send(json)).catch(error => res.send("There has been an error:" + error));
 });
 
 router.post('/create', async (req, res) => {
