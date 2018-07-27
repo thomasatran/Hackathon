@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import ListEntry from './ListEntry.js';
 class Background extends Component {
     constructor(props){
       super(props);
+      this.seeMore = this.seeMore.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.changeToForm = this.changeToForm.bind(this);
       this.changeToHome = this.changeToForm.bind(this);
-      this.removeIngredient = this.removeIngredient.bind(this);
-      this.state = {mode: "Home", Ingredients: [], category: [], value: ''}
+
+      this.state = {mode: "Home", Ingredients: [], category: [], value: '', response: []}
     }
     async handleSubmit(e){
       e.preventDefault();
       console.log('Ingredients:', this.state.Ingredients, 'Categories', this.state.category, 'cookTime: ',this.state.value );
-      await fetch('http://localhost:4200/recipe/search', {
+      let response = await fetch('http://localhost:4200/recipe/search', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -27,8 +28,11 @@ class Background extends Component {
           CookTime: this.state.value
         }),
       }).then(text=>text.json()).then((body)=>{
-      console.log(body); 
+      return body; 
     });
+    let arr = response.slice(0,5);
+    this.setState({mode:"Results"});
+    this.setState({response: arr});
     }
     selectIngredient(e){
       console.log(this.state.Ingredients);
@@ -70,9 +74,10 @@ class Background extends Component {
         this.setState({category:array});
       }
     }
-    removeIngredient(e){
-      
+    seeMore(e){
+      console.log(e.target.value);
     }
+
     changeToForm(){
       this.setState({mode:"SearchForm"});
     }
@@ -111,7 +116,7 @@ class Background extends Component {
               <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Beef Broth"aria-pressed="false"onClick={this.selectIngredient.bind(this)}>Beef Broth</button>
               <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Vegetable Stock"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Vegetable Stock</button>
               <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Broccoli"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Brocooli</button>
-              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Spinach"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Spinach</button>
+              <button class= 'btn btn-outline-primary category'data-toggle="button" value = "Spinach"aria-pressed="false" onClick={this.selectIngredient.bind(this)}>Bread</button>
               <hr class= 'featurette-divider'></hr>
               <h1>Food Type</h1>
               <hr class= 'featurette-divider'></hr>
@@ -141,6 +146,24 @@ class Background extends Component {
           </form>
           </div>
       }
+      else if(state === "Results"){
+        let results = this.state.response;
+        let listItems = results.map((res)=>{
+          let instructions = res.instructions.map((ins)=>{
+            return <p class="pb-0">{ins}</p>
+          });
+          return (
+            <div>
+            <h4 class="mb-0 pt-3" >{res.name}</h4>
+            <ul>{instructions}</ul>
+            </div>
+          )
+        });
+        form = <div class ="content">
+            <ul class = "pr-1 pl-1">{listItems}</ul>
+          </div>
+      }
+      
         return (
       <div className= 'Background'>
         <div class ='background'></div>
