@@ -5,14 +5,16 @@ import './App.css';
 class Background extends Component {
     constructor(props){
       super(props);
+      this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.changeToForm = this.changeToForm.bind(this);
       this.changeToHome = this.changeToForm.bind(this);
       this.removeIngredient = this.removeIngredient.bind(this);
-      this.state = {mode: "Home", Ingredients: [], category: []}
+      this.state = {mode: "Home", Ingredients: [], category: [], value: ''}
     }
-    handleSubmit(){
-      
+    handleSubmit(e){
+      e.preventDefault();
+      console.log('Ingredients:', this.state.Ingredients, 'Categories', this.state.category, 'cookTime: ',this.state.value );
     }
     selectIngredient(e){
       console.log(this.state.Ingredients);
@@ -32,6 +34,9 @@ class Background extends Component {
         this.setState({Ingredients:array});
       }
       
+    }
+    handleChange(event) {
+      this.setState({value: event.target.value});
     }
     selectCategory(e){
       console.log(this.state.category);
@@ -112,7 +117,8 @@ class Background extends Component {
               <div class="form-group row pb-1 pt-1 mr-0 ml-0">
                 <label for="cookTime" class="col-sm-2 col-form-label">Cook Time (Minutes)</label>
                 <div class="col-sm-10">
-                  <input type="text" class="mt-2 form-control" id="cookTime" placeholder="45"></input>
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                  {/* <input type="text" class="mt-2 form-control"  onChange={this.handleChange.bind(this)}id="cookTime"value ={this.state.cookTime} placeholder="45"></input> */}
                 </div>
               </div>
               <div class= "pb-5">
