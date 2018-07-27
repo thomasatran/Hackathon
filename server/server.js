@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
-let recipe = require('./routes/recipe.routes');
 const port = process.env.PORT || 4200;
 const app = express();
 

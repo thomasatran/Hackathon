@@ -23,24 +23,24 @@ router.post('/create', async(req, res) => {
 
      let value = await Recipe.create({
         recipeID: 6,
-        name: "Salad with Croutons",
+        name: "Spaghetti",
         categories:[
-            'Thai',
-            'Korean'
+            'Italian'
         ],
         ingredients: [{
-            "name": "chicken",
+            "name": "Pasta",
             "quantity": 8,
             "unit": "ounce"
         }, {
-            "name": "bread",
-            "quantity": 8,
+            "name": "Tomatoes",
+            "quantity": 10,
             "unit": "pieces"
         }],
-        ingredientStrings:["salad", "bread",'Chicken'],
+        ingredientStrings:["Pasta", "Tomatoes"],
         cookTime: 10,
         totalClicksPerRecipe: 25,
         instructions: ["Heat up a pan on medium", "place Sausage in pan for 5 minutes", "toasting the bun", "After 5 minutes, assemble sausage and bun on a plate to eat"]
+
     });
 
     console.log(""+ value);
@@ -68,7 +68,7 @@ router.post('/looseSearch', async (req, res) => {
 
     // let value = await Recipe.find( {ingredientStrings: { $elemMatch: req.body.results}});
     let value = await Recipe.find( {ingredientStrings:  { $in:  req.body.results}});
-    
+
      // let value2 = await Array.from(value).find( {ingredients: { $elemMatch: { "name": req.body.results[1]}}});;
 
     //let value2 = await value.find({ingredients: { $elemMatch: { "name": "bread"}}});
